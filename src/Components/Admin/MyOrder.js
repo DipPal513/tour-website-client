@@ -10,29 +10,27 @@ const MyOrder = () => {
     fetch(`https://grim-alien-58691.herokuapp.com/myOrders/${user.email}`)
       .then((res) => res.json())
       .then((data) => setOrders(data))
-      .finally(()=> setIsloading(false));
+      .finally(() => setIsloading(false));
   }, [user.email]);
   const handleDelete = (id) => {
     setIsloading(true);
-    fetch(`https://grim-alien-58691.herokuapp.com/deleteOrder/${id}`, {
-      method: "DELETE",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount) {
-          const isConfirm = window.confirm("Are you sure...?");
-          if (isConfirm) {
+    const isConfirm = window.confirm("Are you sure...?");
+    if (isConfirm) {
+      fetch(`https://grim-alien-58691.herokuapp.com/deleteOrder/${id}`, {
+        method: "DELETE",
+        headers: { "content-type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if(data.deletedCount){
             const remaining = orders.filter((order) => order._id !== id);
-            alert("Successfuly deleted....");
             setOrders(remaining);
-          } else {
-            setOrders([]);
           }
-        }
-      }).finally(()=> setIsloading(false))
+         
+        });
+    }
   };
-  
+
   return (
     <div>
       <h1 className="text-center text-uppercase my-4">
@@ -49,6 +47,7 @@ const MyOrder = () => {
                   <th scope="col">Email</th>
                   <th scope="col">Title</th>
                   <th scope="col">Price</th>
+                  <th scope="col">status</th>
                 </tr>
               </thead>
               <tbody>
@@ -60,6 +59,7 @@ const MyOrder = () => {
                         <td>{order.email}</td>
                         <td>{order.title}</td>
                         <td>${order.price}</td>
+                        <td>{order.status}</td>
                         <td>
                           <button
                             className="btn btn-sm btn-danger"

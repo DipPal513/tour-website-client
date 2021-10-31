@@ -4,7 +4,7 @@ import useAuth from "../../Hooks/useAuth";
 const ManageAllOrders = () => {
   const { setIsloading} = useAuth();
   const [orders, setOrders] = useState();
-  const [status, setStatus] = useState("pending");
+
   useEffect(() => {
     setIsloading(true)
     fetch("https://grim-alien-58691.herokuapp.com/myorders")
@@ -14,31 +14,24 @@ const ManageAllOrders = () => {
   }, []);
 
   const handleDelete = (id) => {
-    setIsloading(true)
-    fetch(`https://grim-alien-58691.herokuapp.com/deleteOrder/${id}`, {
-      method: "DELETE",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount) {
-          const isConfirm = window.confirm("Are you sure...?");
-          if (isConfirm) {
+    setIsloading(true);
+    const isConfirm = window.confirm("Are you sure...?");
+    if (isConfirm) {
+      fetch(`https://grim-alien-58691.herokuapp.com/deleteOrder/${id}`, {
+        method: "DELETE",
+        headers: { "content-type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if(data.deletedCount){
             const remaining = orders.filter((order) => order._id !== id);
-            alert("Successfuly deleted....");
             setOrders(remaining);
-          } else {
-            setOrders([]);
           }
-        }
-      }).finally(()=>setIsloading(false))
-  };
-  const handleStatus = (id) => {
-    const selected = orders.filter(order => order.id == id);
-    if(id == selected){
-      setStatus('Apporved')
+         
+        });
     }
-  }
+  };
+  
   return (
     <div className="container align-items-center justify-content-center">
       <div className="row">
@@ -63,17 +56,10 @@ const ManageAllOrders = () => {
                 <th scope="row">{index + 1}</th>
                 <td>{order.name}</td>
                 <td>{order.email}</td>
-                <td>{status}</td>
+               
                 <td>{order.title}</td>
                 <td>${order.price}</td>
-                <td>
-                  <button
-                    className="btn btn-info btn-sm"
-                    onClick={() => handleStatus(order._id)}
-                  >
-                    Update
-                  </button>
-                </td>
+              
                 <td>
                   <button
                     className="btn btn-danger btn-sm"

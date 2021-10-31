@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import MyOrder from "../Admin/MyOrder";
 const Placeorder = () => {
   const { register, handleSubmit, reset } = useForm();
   const { user, setIsloading } = useAuth();
@@ -9,24 +10,21 @@ const Placeorder = () => {
   const { planId } = useParams();
   const history = useHistory();
   useEffect(() => {
-
     fetch(`https://grim-alien-58691.herokuapp.com/services/${planId}`)
       .then((res) => res.json())
       .then((data) => {
         setService(data);
-        setIsloading(false)
+        setIsloading(false);
       });
   }, [service]);
 
   const onSubmit = (data) => {
- 
+    data.status = 'pending'
     fetch("https://grim-alien-58691.herokuapp.com/placeOrder", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
-    }).then((res) => {
-      
-    });
+    }).then((res) => {});
     reset();
     history.push("/Admin/MyOrder");
   };
@@ -45,7 +43,7 @@ const Placeorder = () => {
           </div>
         </div>
         <div className="col-lg-6">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          {/* <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group my-3">
               <input
                 {...register("name", { require: true })}
@@ -87,7 +85,53 @@ const Placeorder = () => {
                 value={service?.Price}
                 readOnly
               />
-            </div>
+            </div> */}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input
+              className="p-2 m-2 form-control"
+              placeholder="name"
+              {...register("name")}
+              value = {user.displayName}
+              readOnly
+            />
+            <br />
+            <input
+              className="p-2 m-2 form-control"
+              placeholder="email"
+              {...register("email")}
+              value = {user.email}
+              readOnly
+            />
+            <br />
+            <input
+              type="text"
+              className="p-2 m-2 form-control"
+              placeholder="title"
+              {...register("title")}
+              value = {service.title}
+              readOnly
+            />
+            <br />
+            <input
+              type="number"
+              className="p-2 m-2 form-control"
+              placeholder="price"
+              {...register("price")}
+              value = {service.Price}
+              readOnly
+            />
+            <br />
+            <input
+              type="text"
+              className="p-2 m-2 form-control"
+              placeholder="Adress"
+              {...register("Adress")}
+            />
+            <br />
+            {/* {errors.exampleRequired && <span>This field is required</span>} */}
+            <br />
+
+            {/* <input className="btn btn-danger  " type="submit" /> */}
 
             {!service.title ? (
               <button type="submit" className="btn btn-success" disabled>
