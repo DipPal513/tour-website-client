@@ -1,0 +1,41 @@
+.carousel-btn {
+  background: #ffc800;
+  text-transform: inherit !important;
+  padding: 30px 60px;
+  color: #008ed0 !important;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  border-radius: 5px;
+  line-height: 1;
+  line-height: 0;
+  cursor: pointer;
+  transition: color 0.4s linear;
+  position: relative;
+  z-index: 1;
+  border: 0;
+  overflow: hidden;
+}
+.carousel-btn::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 102%;
+    height: 102%;
+    z-index: 1;
+    border-radius: 0;
+    transition: transform .5s;
+    transition-timing-function: ease;
+    transform-origin: 0 0;
+    transition-timing-function: cubic-bezier(.5,1.6,.4,.7);
+    transform: scaleY(0);
+    border-radius: 0;
+}
+.carousel-inner{
+    height: 80vh;
+}
+.carousel-item{
+    height: 80vh;
+}
