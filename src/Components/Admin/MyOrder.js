@@ -48,6 +48,7 @@ const MyOrder = () => {
                   <th scope="col">Title</th>
                   <th scope="col">Price</th>
                   <th scope="col">status</th>
+                  <th scope="col">Adress</th>
                 </tr>
               </thead>
               <tbody>
@@ -60,6 +61,7 @@ const MyOrder = () => {
                         <td>{order.title}</td>
                         <td>${order.price}</td>
                         <td>{order.status}</td>
+                        <td>{order.Adress}</td>
                         <td>
                           <button
                             className="btn btn-sm btn-danger"
