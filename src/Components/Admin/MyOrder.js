@@ -11,7 +11,7 @@ const MyOrder = () => {
       .then((res) => res.json())
       .then((data) => setOrders(data))
       .finally(() => setIsloading(false));
-  }, [user.email]);
+  }, [orders]);
   const handleDelete = (id) => {
     setIsloading(true);
     const isConfirm = window.confirm("Are you sure...?");
