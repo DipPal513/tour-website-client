@@ -9,29 +9,32 @@ const Placeorder = () => {
   const { planId } = useParams();
   const history = useHistory();
   useEffect(() => {
+
     fetch(`https://grim-alien-58691.herokuapp.com/services/${planId}`)
       .then((res) => res.json())
-      .then((data) => setService(data));
-  }, []);
+      .then((data) => {
+        setService(data);
+        setIsloading(false)
+      });
+  }, [service]);
 
   const onSubmit = (data) => {
-    console.log(data);
+ 
     fetch("https://grim-alien-58691.herokuapp.com/placeOrder", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
     }).then((res) => {
-      setIsloading(false);
+      
     });
-    
+    reset();
     history.push("/Admin/MyOrder");
-
   };
 
   return (
     <div className="container my-5">
       <div className="row">
-        <div className="col-lg-5">
+        <div className="col-lg-5 col-md-7 col-sm-12">
           <div className="card">
             <img src={service.image} className="card-img-top" alt="..." />
             <div className="card-body">
@@ -71,8 +74,7 @@ const Placeorder = () => {
                 type="text"
                 className="form-control"
                 placeholder="title"
-                aria-label="Last name"
-                value={service.title}
+                value={service?.title}
                 readOnly
               />
             </div>
@@ -81,12 +83,12 @@ const Placeorder = () => {
                 {...register("price", { require: true })}
                 type="text"
                 className="form-control"
-                placeholder="Price"
-                aria-label="price"
-                value={service.Price}
+                placeholder="price"
+                value={service?.Price}
                 readOnly
               />
             </div>
+
             {!service.title ? (
               <button type="submit" className="btn btn-success" disabled>
                 Purchase Now

@@ -4,6 +4,7 @@ import useAuth from "../../Hooks/useAuth";
 const ManageAllOrders = () => {
   const { setIsloading} = useAuth();
   const [orders, setOrders] = useState();
+  const [status, setStatus] = useState("pending");
   useEffect(() => {
     setIsloading(true)
     fetch("https://grim-alien-58691.herokuapp.com/myorders")
@@ -32,30 +33,47 @@ const ManageAllOrders = () => {
         }
       }).finally(()=>setIsloading(false))
   };
+  const handleStatus = (id) => {
+    const selected = orders.filter(order => order.id == id);
+    if(id == selected){
+      setStatus('Apporved')
+    }
+  }
   return (
-    <div className="container">
+    <div className="container align-items-center justify-content-center">
       <div className="row">
         <h1 className="text-center my-5 text-uppercase">
           Manage all {orders?.length} orders
         </h1>
+        <div className="col-lg-8 col-md-8 col-sm-12">
         <table className="table table-hover">
           <thead>
             <tr>
               <th scope="col">No</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
+              <th scope="col">status</th>
               <th scope="col">Title</th>
               <th scope="col">Price</th>
             </tr>
           </thead>
           <tbody>
             {orders?.map((order, index) => (
-              <tr>
+              <tr key = {index}>
                 <th scope="row">{index + 1}</th>
                 <td>{order.name}</td>
                 <td>{order.email}</td>
+                <td>{status}</td>
                 <td>{order.title}</td>
                 <td>${order.price}</td>
+                <td>
+                  <button
+                    className="btn btn-info btn-sm"
+                    onClick={() => handleStatus(order._id)}
+                  >
+                    Update
+                  </button>
+                </td>
                 <td>
                   <button
                     className="btn btn-danger btn-sm"
@@ -68,6 +86,7 @@ const ManageAllOrders = () => {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

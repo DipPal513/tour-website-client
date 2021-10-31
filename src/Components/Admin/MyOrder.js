@@ -32,6 +32,7 @@ const MyOrder = () => {
         }
       }).finally(()=> setIsloading(false))
   };
+  
   return (
     <div>
       <h1 className="text-center text-uppercase my-4">
@@ -58,7 +59,7 @@ const MyOrder = () => {
                         <td>{order.name}</td>
                         <td>{order.email}</td>
                         <td>{order.title}</td>
-                        <td>{order.price}</td>
+                        <td>${order.price}</td>
                         <td>
                           <button
                             className="btn btn-sm btn-danger"

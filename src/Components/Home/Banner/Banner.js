@@ -12,8 +12,8 @@ const Banner = () => {
             alt="First slide"
           />
           <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <h3>Travel & Tours</h3>
+            <p>Travel around the world and know yourself</p>
             <button className="carousel-btn">Explore</button>
           </Carousel.Caption>
         </Carousel.Item>
@@ -25,8 +25,8 @@ const Banner = () => {
           />
 
           <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3>Experience Once In Your Life Time</h3>
+            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,</p>
             <button className="carousel-btn">Explore</button>
           </Carousel.Caption>
         </Carousel.Item>
@@ -38,9 +38,9 @@ const Banner = () => {
           />
 
           <Carousel.Caption>
-            <h3>Third slide label</h3>
+            <h3>International Tour Management.</h3>
             <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+            Far far away, behind the word mountains, far from the countries Vokalia and Consonantia
             </p>
             <button className="carousel-btn">Explore</button>
           </Carousel.Caption>
